@@ -5,13 +5,19 @@ const getTodos = (a: string[]) => {
   return a.reduce((index, e) => index + e);
 };
 
-function getTodayDate() {
-  const tDate = Temporal.Now.plainDateTimeISO().toPlainTime();
-  return tDate;
+interface IDataTodos {
+  getDate(): void;
 }
 
-console.log(`${getTodayDate().hour}:${getTodayDate().minute}:${getTodayDate().second.toFixed(2)}
-`);
+class Dates implements IDataTodos {
+  getDate(): void {
+    const tDate = Temporal.Now.plainDateTimeISO().toPlainTime();
+    console.log(`${tDate.hour}:${tDate.minute}:${tDate.second.toFixed(2)}`);
+  }
+}
+
+const date = new Dates();
+date.getDate();
 
 export const todos: string[] = [];
 
