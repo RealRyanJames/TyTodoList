@@ -19,23 +19,35 @@ class Dates implements IDataTodos {
 const date = new Dates();
 date.getDate();
 
-export const todos: string[] = [];
+function main() {
+  const todos: string[] = [];
+  const todo_1 = readline.question("Enter Todo 1: ");
+  const todo_2 = readline.question("Enter Todo 2: ");
 
-export const todo_1 = readline.question("Enter Todo 1: ");
-export const todo_2 = readline.question("Enter Todo 2: ");
+  function sendToFile() {
+    return fs.writeFileSync("todos.txt", `${todo_1} ${todo_2}`);
+  }
 
-export function sendToFile() {
-  return fs.writeFileSync("todos.txt", `${todo_1} ${todo_2}`);
+  todos.push(todo_1);
+  todos.push(todo_2);
+
+  for (const s in todos) {
+    console.log(getTodos(todos));
+  }
+
+  setTimeout(() => {
+    console.log(`Todo 1 | ${todo_1.toUpperCase()}`);
+    console.log(`Todo 2 | ${todo_2.toUpperCase()}`);
+
+    sendToFile();
+  }, 3000);
 }
 
-todos.push(todo_1);
-todos.push(todo_2);
+class CallableFunc {
+  getMain() {
+    main();
+  }
+}
 
-console.log(getTodos(todos));
-
-setTimeout(() => {
-  console.log(`Todo 1 | ${todo_1.toUpperCase()}`);
-  console.log(`Todo 2 | ${todo_2.toUpperCase()}`);
-
-  sendToFile();
-}, 3000);
+let c = new CallableFunc();
+c.getMain();
